@@ -1,0 +1,46 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+// ================= User Pages =================
+import HomePage from './pages/HomePage';
+import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage';
+import SearchRestaurantsPage from './pages/SearchRestaurantsPage';
+import RestaurantDetailsPage from './pages/RestaurantDetailsPage';
+import ViewMenuPage from './pages/ViewMenuPage';
+import SubmitReviewPage from './pages/SubmitReviewPage';
+import ViewReviewsPage from './pages/ViewReviewsPage';
+
+// ================= Admin Pages =================
+import AdminLoginPage from './pages/admin/AdminLoginPage';
+import AdminRestaurantsPage from './pages/admin/AdminRestaurantsPage';
+import AdminMenuPage from './pages/admin/AdminMenuPage';
+import AdminUsersPage from './pages/admin/AdminUsersPage';
+import AdminModerationPage from './pages/admin/AdminModerationPage';
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        {/* ===== User Routes ===== */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/search" element={<SearchRestaurantsPage />} />
+        <Route path="/restaurant/:id" element={<RestaurantDetailsPage />} />
+        <Route path="/restaurant/:id/menu" element={<ViewMenuPage />} />
+        <Route path="/restaurant/:id/review" element={<SubmitReviewPage />} />
+        <Route path="/restaurant/:id/reviews" element={<ViewReviewsPage />} />
+
+        {/* ===== Admin Routes ===== */}
+        <Route path="/admin/login" element={<AdminLoginPage />} />
+        <Route path="/admin/restaurants" element={<AdminRestaurantsPage />} />
+        <Route path="/admin/restaurants/:id/menu" element={<AdminMenuPage />} />
+        <Route path="/admin/users" element={<AdminUsersPage />} />
+        <Route path="/admin/moderation" element={<AdminModerationPage />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
