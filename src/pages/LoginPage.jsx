@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { supabase } from './supabaseClient';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from './UserContext';
 
 const Container = styled.div`
   max-width: 400px;
@@ -37,14 +38,14 @@ export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const navigate = useNavigate();   
+  const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);   // <--- ADDED
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     if (!username || !password) return alert("Fill all fields");
 
-    // Get user from Supabase
     const { data, error } = await supabase
       .from('users')
       .select('*')
@@ -53,15 +54,14 @@ export default function LoginPage() {
 
     if (error || !data) return alert('User not found');
 
-    
     if (password === data.password) {
+      setUser(data);              // <--- ADDED (saves logged-in user)
       alert('Login successful!');
       navigate('/search'); 
     } else {
       alert('Incorrect password');
     }
   };
-  
 
   return (
     <Container>
